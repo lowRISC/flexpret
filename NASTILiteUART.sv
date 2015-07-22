@@ -62,7 +62,7 @@ module NASTILiteUART
         b.valid <= 1'b0;
         r.valid <= 1'b0;
      end else begin
-        if(write_fire) b.valid <= 1'b1;
+        if(write_fire) b.valid <= w.strb[0]; // in case strb is not enabled
         else if(b.ready) b.valid <= 1'b0;
 
         if(read_fire) begin
@@ -82,5 +82,6 @@ module NASTILiteUART
    assign ar.ready = read_fire;
    assign r.resp = 0;
    assign r.user = 0;
+   assign r.last = 1;
    
 endmodule // AXILiteUART
