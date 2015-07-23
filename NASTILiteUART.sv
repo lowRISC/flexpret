@@ -1,10 +1,8 @@
 // See LICENSE for license details.
 
-`include "nasti/channel.vh"
-
 module NASTILiteUART
   #(
-    NASTI_ID_WIDTH = 8,
+    NASTI_ID_WIDTH = 1,
     NASTI_ADDR_WIDTH = 8,
     NASTI_DATA_WIDTH = 8,
     NASTI_USER_WIDTH = 1,
@@ -26,6 +24,7 @@ module NASTILiteUART
 
    logic [NASTI_DATA_WIDTH-1:0] data_in, data_out;
    logic                        data_in_valid, data_in_ready, data_out_valid, data_out_ready;
+   logic                        write_fire, read_fire;
 
    UART #(
           .ClockFreq ( ClockFreq        ),
@@ -47,8 +46,6 @@ module NASTILiteUART
     .Sout         ( txd            )
     );
       
-   logic                        write_fire, read_fire;
-
    assign write_fire = aw.valid && w.valid && data_in_ready && aw.addr[NASTI_ADDR_WIDTH-1:0] == 0;
    assign read_fire = ar.valid && data_out_valid && ar.addr[NASTI_ADDR_WIDTH-1:0] == 0;
    
