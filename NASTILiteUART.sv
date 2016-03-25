@@ -17,7 +17,7 @@ module NASTILiteUART
     nasti_w w,
     nasti_b b,
     nasti_ar ar,
-    nasti r r
+    nasti_r r.
     input rxd,
     output txd
     );
